@@ -84,6 +84,22 @@ kubectl get po --selector=app=v2
 </p>
 </details>
 
+### Get 'app=v2' and not 'tier=frontend' pods
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl get po -l app=v2,tier!=frontend
+# or
+kubectl get po -l 'app in (v2), tier notin (frontend)'
+# or
+kubectl get po --selector=app=v2,tier!=frontend
+```
+
+</p>
+</details>
+
 ### Add a new label tier=web to all pods having 'app=v2' or 'app=v1' labels
 
 <details><summary>show</summary>
@@ -829,48 +845,6 @@ kubectl delete job busybox
 </p>
 </details>
 
-### Create a job but ensure that it will be automatically terminated by kubernetes if it takes more than 30 seconds to execute
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl create job busybox --image=busybox --dry-run=client -o yaml -- /bin/sh -c 'while true; do echo hello; sleep 10;done' > job.yaml
-vi job.yaml
-```
-
-Add job.spec.activeDeadlineSeconds=30
-
-```bash
-apiVersion: batch/v1
-kind: Job
-metadata:
-  creationTimestamp: null
-  labels:
-    run: busybox
-  name: busybox
-spec:
-  activeDeadlineSeconds: 30 # add this line
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: busybox
-    spec:
-      containers:
-      - args:
-        - /bin/sh
-        - -c
-        - while true; do echo hello; sleep 10;done
-        image: busybox
-        name: busybox
-        resources: {}
-      restartPolicy: OnFailure
-status: {}
-```
-</p>
-</details>
-
 ### Create the same job, make it run 5 times, one after the other. Verify its status and delete it
 
 <details><summary>show</summary>
@@ -975,6 +949,48 @@ It will take some time for the parallel jobs to finish (>= 30 seconds)
 kubectl delete job busybox
 ```
 
+</p>
+</details>
+
+### Create a job but ensure that it will be automatically terminated by kubernetes if it takes more than 30 seconds to execute
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl create job busybox --image=busybox --dry-run=client -o yaml -- /bin/sh -c 'while true; do echo hello; sleep 10;done' > job.yaml
+vi job.yaml
+```
+
+Add job.spec.activeDeadlineSeconds=30
+
+```bash
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  labels:
+    run: busybox
+  name: busybox
+spec:
+  activeDeadlineSeconds: 30 # add this line
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: busybox
+    spec:
+      containers:
+      - args:
+        - /bin/sh
+        - -c
+        - while true; do echo hello; sleep 10;done
+        image: busybox
+        name: busybox
+        resources: {}
+      restartPolicy: OnFailure
+status: {}
+```
 </p>
 </details>
 
