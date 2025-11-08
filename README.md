@@ -19,7 +19,7 @@ A Quick Reference box will contain helpful links for each exam exercise as well.
 - [ ] [Pod design - 20%](c.pod_design.md)
 - [ ] [Configuration - 18%](d.configuration.md)
 - [ ] [Observability - 18%](e.observability.md)
-- [ ] [Services and networking - 13%](f.services.md)
+- [x] [Services and networking - 13%](f.services.md)
 - [ ] [State persistence - 8%](g.state.md)
 - [ ] [helm](h.helm.md)
 - [ ] [Custom Resource Definitions](i.crd.md)
