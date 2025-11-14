@@ -16,7 +16,7 @@ A Quick Reference box will contain helpful links for each exam exercise as well.
 
 - [ ] [Core Concepts - 13%](a.core_concepts.md)
 - [ ] [Multi-container pods - 10%](b.multi_container_pods.md)
-- [ ] [Pod design - 20%](c.pod_design.md)
+- [x] [Pod design - 20%](c.pod_design.md)
 - [ ] [Configuration - 18%](d.configuration.md)
 - [ ] [Observability - 18%](e.observability.md)
 - [x] [Services and networking - 13%](f.services.md)
